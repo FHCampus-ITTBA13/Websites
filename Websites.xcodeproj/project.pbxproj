@@ -22,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A663E5D616B063D700D6EAD4 /* FHCWebsiteDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FHCWebsiteDelegate.h; sourceTree = "<group>"; };
 		A69E829616AF0FEA00A8D050 /* Websites.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Websites.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A69E829A16AF0FEA00A8D050 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A69E829C16AF0FEA00A8D050 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +91,7 @@
 				A69E82AA16AF0FEB00A8D050 /* FHCAppDelegate.m */,
 				A69E82B716AF107200A8D050 /* FHCWebsitesTableViewController.h */,
 				A69E82B816AF107200A8D050 /* FHCWebsitesTableViewController.m */,
+				A663E5D616B063D700D6EAD4 /* FHCWebsiteDelegate.h */,
 				A69E82BA16AF1D2E00A8D050 /* FHCWebViewController.h */,
 				A69E82BB16AF1D2E00A8D050 /* FHCWebViewController.m */,
 				A69E82BC16AF1D2E00A8D050 /* FHCWebViewController.xib */,
@@ -295,6 +297,7 @@
 				A69E82B616AF0FEB00A8D050 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

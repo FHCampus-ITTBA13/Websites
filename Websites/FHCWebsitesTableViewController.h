@@ -7,18 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FHCWebsiteDelegate.h"
 
-@protocol FHCWebsitesDelegate;
 
 @interface FHCWebsitesTableViewController : UITableViewController
 
 @property (nonatomic, weak) id<FHCWebsitesDelegate> delegate;
-
-@end
-
-
-@protocol FHCWebsitesDelegate <NSObject>
-
-- (void)websitesViewController:(FHCWebsitesTableViewController *)websiteViewController didSelectWebsiteWithAddress:(NSString *)address;
 
 @end
