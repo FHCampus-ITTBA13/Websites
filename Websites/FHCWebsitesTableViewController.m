@@ -16,7 +16,7 @@
 
 @interface FHCWebsitesTableViewController ()
 
-@property (nonatomic, strong) NSArray *websites;
+@property (nonatomic, strong) NSMutableArray *websites;
 
 @end
 
@@ -28,12 +28,24 @@
     
     NSLog(@"TableVC didLoad");
     self.title = @"Websites";
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    
+    self.refreshControl = refreshControl;
+    [self.refreshControl addTarget:self
+                            action:@selector(handleRefresh)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(handleAddPress)];
+    self.navigationItem.rightBarButtonItem = item;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     NSLog(@"TableVC willAppear");
+    
+    [self loadWebsites];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -52,14 +64,6 @@
     [super viewDidDisappear:animated];
     
     NSLog(@"TableVC didDisappear");
-}
-
-- (NSArray *)websites {
-    if (_websites == nil) {
-        _websites = @[@"http://google.at", @"http://amazon.de", @"http://apple.com", @"http://mtdirectionsk.it", @"http://ebay.at"];
-    }
-    
-    return _websites;
 }
 
 #pragma mark - UITableViewDataSource
@@ -93,11 +97,41 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *website = self.websites[indexPath.row];
     
-    FHCWebViewController *viewController = [[FHCWebViewController alloc] initWithNibName:nil bundle:nil];
+    [self.delegate websitesViewController:self didSelectWebsiteWithAddress:website];
+}
+
+#pragma mark - Private
+
+- (void)handleRefresh {
+    [self loadWebsites];
+}
+
+- (void)handleAddPress {
+    int random = arc4random() % 100;
+    NSString *address = [NSString stringWithFormat:@"http://website%d.com", random];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.websites.count inSection:0];
     
-    viewController.webAddress = website;
+    [self.websites addObject:address];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)loadWebsites {
+    NSString *address = @"https://dl.dropbox.com/u/30880/websites.txt";
+    NSURL *URL = [NSURL URLWithString:address];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
-    [self.navigationController pushViewController:viewController animated:YES];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *r, NSData *data, NSError *error) {
+                                           
+                                           NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                           
+                                           NSArray *websites = [s componentsSeparatedByString:@","];
+                                           
+                                           self.websites = [websites mutableCopy];
+                                           [self.tableView reloadData];
+                                           [self.refreshControl endRefreshing];
+                                       }];
 }
 
 @end

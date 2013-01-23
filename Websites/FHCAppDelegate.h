@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FHCWebsitesTableViewController.h"
+#import "FHCWebViewController.h"
 
-@interface FHCAppDelegate : UIResponder <UIApplicationDelegate>
+@interface FHCAppDelegate : UIResponder <UIApplicationDelegate, UISplitViewControllerDelegate, FHCWebsitesDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, strong) FHCWebViewController *webViewController;
 @end

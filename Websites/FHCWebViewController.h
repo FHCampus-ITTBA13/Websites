@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSString *webAddress;
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 @end
